@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa';
 import { type ManifestOptions } from 'vite-plugin-pwa';
+import tailwindcss from '@tailwindcss/vite'
 
 const manifest: Partial<ManifestOptions> = {
   name: 'ChosenSoul | Portfolio',
@@ -32,6 +33,7 @@ export default defineConfig(({}) => {
   return {
     plugins: [
       react(),
+      tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
         manifest: manifest,
