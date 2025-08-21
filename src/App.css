@@ -1,0 +1,24 @@
+html,body {
+    height: 100%;
+    margin: 0;
+    font-family: 'JekoDEMO-ExtraBold', sans-serif;
+}
+
+* {
+    font-weight: bold;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    /* Safari */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+}
+
+@font-face {
+  font-family: 'JekoDEMO-ExtraBold'; 
+  src: url('/fonts/JekoDEMO-ExtraBold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
