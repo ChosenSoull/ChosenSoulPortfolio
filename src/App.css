@@ -1,5 +1,6 @@
 html,body {
     height: 100%;
+    width: 100%;
     margin: 0;
     font-family: 'JekoDEMO-ExtraBold', sans-serif;
 }
@@ -17,8 +18,15 @@ html,body {
 }
 
 @font-face {
-  font-family: 'JekoDEMO-ExtraBold'; 
-  src: url('/fonts/JekoDEMO-ExtraBold.otf') format('opentype');
-  font-weight: bold;
-  font-style: normal;
+    font-family: 'JekoDEMO-ExtraBold'; 
+    src: url('/assets/fonts/JekoDEMO-ExtraBold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'DSTFont'; 
+    src: url('/assets/fonts/October Crow.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
 }

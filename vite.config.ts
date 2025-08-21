@@ -4,6 +4,8 @@ import { VitePWA } from 'vite-plugin-pwa';
 import { type ManifestOptions } from 'vite-plugin-pwa';
 import tailwindcss from '@tailwindcss/vite'
 
+import path from 'path';
+
 const manifest: Partial<ManifestOptions> = {
   name: 'ChosenSoul | Portfolio',
   short_name: 'ChosenSoul',
@@ -82,6 +84,15 @@ export default defineConfig(({}) => {
         }
       }),
     ],
+    resolve: {
+      alias: {
+        '@components': path.resolve(__dirname, './src/components'),
+        '@pages': path.resolve(__dirname, './src/pages'),
+        '@sections': path.resolve(__dirname, './src/sections'),
+        '@hooks': path.resolve(__dirname, './src/hooks'),
+        '@utils': path.resolve(__dirname, './src/utils'),
+      },
+    },
     define: {
       //'import.meta.env.GA_TRACKING_ID': JSON.stringify(env.GA_TRACKING_ID || 'G-XXXXXXXXXX'),
     },
