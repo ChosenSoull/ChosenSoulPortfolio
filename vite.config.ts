@@ -17,21 +17,19 @@ const manifest: Partial<ManifestOptions> = {
   lang: 'en',
   icons: [
     {
-      src: '',
+      src: '/assets/icons/logo.png',
       sizes: '192x192',
       type: 'image/png',
     },
     {
-      src: '',
+      src: '/assets/icons/logo.png',
       sizes: '512x512',
       type: 'image/png',
     },
   ],
 };
 
-// https://vite.dev/config/
 export default defineConfig(({}) => {
-  // const env = loadEnv(mode, process.cwd(), '');
   return {
     plugins: [
       react(),
@@ -92,9 +90,6 @@ export default defineConfig(({}) => {
         '@hooks': path.resolve(__dirname, './src/hooks'),
         '@utils': path.resolve(__dirname, './src/utils'),
       },
-    },
-    define: {
-      //'import.meta.env.GA_TRACKING_ID': JSON.stringify(env.GA_TRACKING_ID || 'G-XXXXXXXXXX'),
     },
   };
 });

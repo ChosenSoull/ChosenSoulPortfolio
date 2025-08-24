@@ -44,7 +44,7 @@
 
 .loading-text {
   font-size: 1.5em;
-  color: var(--text-color);
+  color: #ffffff;
   opacity: 0;
   animation: type 3s infinite;
 }

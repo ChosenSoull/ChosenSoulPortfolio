@@ -1,12 +1,13 @@
+@import "tailwindcss";
+
 html,body {
     height: 100%;
     width: 100%;
     margin: 0;
-    font-family: 'JekoDEMO-ExtraBold', sans-serif;
+    overflow: hidden;
 }
 
 * {
-    font-weight: bold;
     -webkit-tap-highlight-color: transparent;
     -webkit-user-select: none;
     /* Safari */
@@ -24,9 +25,12 @@ html,body {
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'DSTFont'; 
-    src: url('/assets/fonts/October Crow.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
+@layer theme {
+    :root, :host {
+        --font-family-sans: 'JekoDEMO-ExtraBold', sans-serif;
+        --default-font-family: var(--font-family-sans); 
+    }
+}
+
+@theme {
 }
