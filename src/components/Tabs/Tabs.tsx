@@ -50,7 +50,7 @@ const StyledTab = styled(Tab)(({ theme }) => ({
 export function MyTabs(props: TabsProps) {
   const [value, setValue] = useState(0);
 
-  const anchorMap = ["#main", "#about-me", "#projects", "#skills"];
+  const anchorMap = ["#hello", "#about-me", "#projects", "#skills"];
 
   const handleScroll = (newValue: number) => {
     setValue(newValue);
@@ -97,7 +97,7 @@ export function MyTabs(props: TabsProps) {
     >
         <StyledTab className="font-jeko"
             disableRipple
-            label="Main"
+            label="Hello"
             iconPosition="start"
         />
         <StyledTab className="font-jeko"
