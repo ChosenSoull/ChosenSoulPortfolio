@@ -5,6 +5,7 @@ html,body {
     width: 100%;
     margin: 0;
     overflow: hidden;
+    background-color: var(--color-dark-purple-950);
 }
 
 * {
@@ -25,12 +26,15 @@ html,body {
     font-style: normal;
 }
 
-@layer theme {
-    :root, :host {
-        --font-family-sans: 'JekoDEMO-ExtraBold', sans-serif;
-        --default-font-family: var(--font-family-sans); 
-    }
-}
-
 @theme {
+    --font-jeko: 'JekoDEMO-ExtraBold', sans-serif;
+    
+    --color-dark-purple-950: #11002C;
+    --color-dark-purple-900: #240046;
+    --color-dark-purple-850: #3A076D;
+    --color-dark-purple-800: #5A199B;
+    --color-dark-purple-750: #7B2BBE;
+    --color-dark-purple-700: #9D4EDD;
+    --color-dark-purple-650: #C67DFF;
+    --color-dark-purple-600: #E0AAFE;
 }

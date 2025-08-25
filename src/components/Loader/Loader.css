@@ -10,7 +10,7 @@
 .loader4 {
   width: 48px;
   height: 48px;
-  background: #b545d1;
+  background: var(--color-dark-purple-650);
   border-radius: 9px;
   --c: no-repeat radial-gradient(farthest-side, #ffffff 100%, transparent 100%);
   --s: 18px 18px;
@@ -43,6 +43,7 @@
 }
 
 .loading-text {
+  font-family: var(--font-jeko);
   font-size: 1.5em;
   color: #ffffff;
   opacity: 0;

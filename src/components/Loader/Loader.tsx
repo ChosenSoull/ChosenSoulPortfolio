@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+
 import '@components/Loader/Loader.css';
 
 const Loading: React.FC = () => {
