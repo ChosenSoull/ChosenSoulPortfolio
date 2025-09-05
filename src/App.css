@@ -17,6 +17,8 @@ html,body {
     -ms-user-select: none;
     /* IE 10+ */
     user-select: none;
+
+    color: var(--color-dark-purple-600);
 }
 
 @font-face {
@@ -37,4 +39,14 @@ html,body {
     --color-dark-purple-700: #9D4EDD;
     --color-dark-purple-650: #C67DFF;
     --color-dark-purple-600: #E0AAFE;
+}
+
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none; /* Для Firefox */
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* Для WebKit-браузеров */
+  }
 }

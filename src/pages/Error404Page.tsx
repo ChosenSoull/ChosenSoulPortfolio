@@ -1,8 +1,8 @@
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Container from "@mui/material/Container"
+import Container from "@mui/material/Container";
 
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 
 export function Error404() {
     return (
