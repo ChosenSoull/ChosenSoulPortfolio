@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import Tabs, { tabsClasses,type TabsProps } from "@mui/material/Tabs";
+import { useState, useEffect, useRef } from "react";
+import Tabs, { tabsClasses, type TabsProps } from "@mui/material/Tabs";
 import Tab, { tabClasses } from "@mui/material/Tab";
 import { styled } from "@mui/material/styles";
 
@@ -49,10 +49,11 @@ const StyledTab = styled(Tab)(({ theme }) => ({
 
 export function MyTabs(props: TabsProps) {
   const [value, setValue] = useState(0);
-
-  const anchorMap = ["#hello", "#about-me", "#projects", "#skills"];
+  const isScrollingByClick = useRef(false); // Создаём реф для отслеживания ручного скролла
+  const anchorMap = ["#hello", "#about-me", "#skills", "#projects"];
 
   const handleScroll = (newValue: number) => {
+    isScrollingByClick.current = true; // Устанавливаем флаг, когда скроллинг начинается
     setValue(newValue);
     const targetId = anchorMap[newValue].substring(1);
     const element = document.getElementById(targetId);
@@ -63,6 +64,11 @@ export function MyTabs(props: TabsProps) {
 
   useEffect(() => {
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+      // Игнорируем события, если скролл был вызван кликом
+      if (isScrollingByClick.current) {
+        return;
+      }
+
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const newIndex = anchorMap.indexOf(`#${entry.target.id}`);
@@ -86,7 +92,18 @@ export function MyTabs(props: TabsProps) {
       if (section) observer.observe(section);
     });
 
-    return () => observer.disconnect();
+    const scrollEndHandler = () => {
+      if (isScrollingByClick.current) {
+        isScrollingByClick.current = false;
+      }
+    };
+
+    window.addEventListener('scroll', scrollEndHandler, { once: true });
+    
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', scrollEndHandler);
+    };
   }, [anchorMap]);
 
   return (
@@ -107,12 +124,12 @@ export function MyTabs(props: TabsProps) {
         />
         <StyledTab className="font-jeko"
             disableRipple
-            label="Projects"
+            label="Skills"
             iconPosition="start"
         />
         <StyledTab className="font-jeko"
             disableRipple
-            label="Skills"
+            label="Projects"
             iconPosition="start"
         />
     </StyledTabs>

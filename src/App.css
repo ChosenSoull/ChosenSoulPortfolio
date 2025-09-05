@@ -6,6 +6,7 @@ html,body {
     margin: 0;
     overflow: hidden;
     background-color: var(--color-dark-purple-950);
+    scroll-behavior: smooth;
 }
 
 * {
@@ -17,8 +18,6 @@ html,body {
     -ms-user-select: none;
     /* IE 10+ */
     user-select: none;
-
-    color: var(--color-dark-purple-600);
 }
 
 @font-face {

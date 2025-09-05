@@ -12,9 +12,7 @@ export function Error404() {
                 animate={{ opacity: 0.4 }}
                 transition={{ duration: 1 }}
                 className="font-jeko text-[min(100vw,100vh)] text-white/30 absolute inset-0 flex items-center justify-end pointer-events-none"
-            >
-                :(
-            </motion.div>
+            > :( </motion.div>
 
             <motion.div
                 initial={{ opacity: 0, y: -50}}
