@@ -26,14 +26,16 @@ export function ContentBox() {
                 <Typography variant="h3" className="font-jeko text-dark-purple-600 mb-[20rem]
                  drop-shadow-[0_0_1.4rem_var(--color-dark-purple-850)]">Now I'll tell you more about myself</Typography>
 
+                <Typography variant="h4" className="font-jeko text-dark-purple-600 mb-4">About Me</Typography>
                 <Typography id="about-me" variant="body1" className="font-jeko text-dark-purple-600 mb-3">I'm an ordinary programming enthusiast, a 
                     frontend/embedded systems developer. I started in 2024. I love to delve into deep topics like algorithms and 
                     operating systems, but I mainly publish school projects, which are for learning, on my GitHub account. I'm 
                     currently in college and don't have enough time for my own projects; all my time goes to studying.</Typography>
 
-                <Typography variant="body1" className="font-jeko text-dark-purple-600">I'm studying to be a software developer.
+                <Typography variant="body1" className="font-jeko text-dark-purple-600 mb-8">I'm studying to be a software developer.
                     As I said, I enjoy creating apps and websites, and I also like to understand low-level systems.</Typography>
 
+                <Typography variant="h4" className="font-jeko text-dark-purple-600 mb-3">My Skils</Typography>
                 <Calendar username="chosensoull" year={2025}/>
             </Box>
             <Box
