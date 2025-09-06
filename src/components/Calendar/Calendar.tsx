@@ -19,10 +19,10 @@ const groupDaysIntoWeeks = (days: ContributionDay[]): ContributionDay[][] => {
 };
 
 const getContributionColor = (count: number): string => {
-  if (count > 20) return '#5A199B';
-  if (count > 10) return '#7B2BBE';
+  if (count > 20) return '#E0AAFE';
+  if (count > 10) return '#C67DFF';
   if (count > 5) return '#9D4EDD';
-  if (count > 0) return '#C67DFF';
+  if (count > 0) return '#7B2BBE';
   return '#3A076D';
 
   /*
@@ -82,7 +82,7 @@ export function Calendar({ username, year }: CalendarProps) {
   const weeklyContributions = groupDaysIntoWeeks(contributions.contributions);
 
   return (
-    <div className="flex-col inline-block">
+    <div className="flex-col inline-block p-6">
       <div className="grid grid-flow-col gap-1 auto-cols-min p-2 bg-dark-purple-900 rounded-lg ">
         {weeklyContributions.map((week, index) => (
           <div key={index} className="flex flex-col gap-1">
