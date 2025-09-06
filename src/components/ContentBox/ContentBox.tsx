@@ -34,8 +34,13 @@ export function ContentBox() {
                     frontend/embedded systems developer. I started in 2024. I love to delve into deep topics like algorithms and 
                     operating systems, but I mainly publish school projects, which are for learning, on my GitHub account. I'm 
                     currently in college and don't have enough time for my own projects all my time goes to studying.</Typography>
-                <Typography variant="body1" className="text-dark-purple-600 p-6">I'm studying to be a software developer.
-                    As I said, I enjoy creating apps and websites, and I also like to understand low-level systems.</Typography>
+                <Typography variant="body1" className="text-dark-purple-600 p-6">I'm studying to be a software developer in college.
+                As I said, I enjoy building apps and websites and understanding low-level systems.</Typography>
+                <Typography variant="body1" className="text-dark-purple-600 p-6">I was programming before, I remember how in 2023
+                I made my first website using HTML and CSS for a computer science homework assignment in 7th grade. Back then, I 
+                think I got an 11 for the work, and I liked it, so I started learning programming on my own, well specifically 
+                frontend development. When I was learning, I didn’t know what directions existed, so I studied frontend and in 
+                2024 I first learned about Git and GitHub, and that’s when I created my account chosensoull, but I had nothing to upload.</Typography>
 
                 <Typography id="skills" variant="h4" className="text-dark-purple-600 mb-6">My Skils</Typography>
                 <SkillsGrid/>
