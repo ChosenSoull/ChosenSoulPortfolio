@@ -15,7 +15,7 @@ export function ContactMe() {
     return (
         <Box className="w-[90%] mb-7">
             <motion.div whileHover={{ scale: 1.1 }} >
-                <Typography variant="body1" className="flex font-jeko text-[min(2vw,18px)] text-dark-purple-600 
+                <Typography variant="body1" className="flex text-[min(2vw,18px)] text-dark-purple-600 
                     justify-center mb-4 drop-shadow-[0_0_1rem_var(--color-dark-purple-700)]">Contact me</Typography>
             </motion.div>
             <Box className="flex justify-center gap-[min(1vw,16px)]">

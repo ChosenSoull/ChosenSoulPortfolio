@@ -43,7 +43,6 @@
 }
 
 .loading-text {
-  font-family: var(--font-jeko);
   font-size: 1.5em;
   color: #ffffff;
   opacity: 0;

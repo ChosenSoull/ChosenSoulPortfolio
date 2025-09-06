@@ -112,22 +112,22 @@ export function MyTabs(props: TabsProps) {
       value={value}
       onChange={(_, newValue) => handleScroll(newValue)}
     >
-        <StyledTab className="font-jeko"
+        <StyledTab
             disableRipple
             label="Hello"
             iconPosition="start"
         />
-        <StyledTab className="font-jeko"
+        <StyledTab
             disableRipple
             label="About Me"
             iconPosition="start"
         />
-        <StyledTab className="font-jeko"
+        <StyledTab
             disableRipple
             label="Skills"
             iconPosition="start"
         />
-        <StyledTab className="font-jeko"
+        <StyledTab
             disableRipple
             label="Projects"
             iconPosition="start"

@@ -18,6 +18,8 @@ html,body {
     -ms-user-select: none;
     /* IE 10+ */
     user-select: none;
+
+    font-family: 'JekoDEMO-ExtraBold', sans-serif;
 }
 
 @font-face {
@@ -28,8 +30,6 @@ html,body {
 }
 
 @theme {
-    --font-jeko: 'JekoDEMO-ExtraBold', sans-serif;
-    
     --color-dark-purple-950: #11002C;
     --color-dark-purple-900: #240046;
     --color-dark-purple-850: #3A076D;
