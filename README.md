@@ -3,7 +3,7 @@
 the project was initially for familiarization with new libraries for me tailwind css
 , MUI, Framer motion. But eventually it grew into my portfolio :)
 
-https://github.com/ChosenSoull/ChosenSoulPort/blob/main/preview.mp4
+https://github.com/user-attachments/assets/5a95db6c-6fb4-428e-9d2d-81913dea5721
 
 ## Install 
 
