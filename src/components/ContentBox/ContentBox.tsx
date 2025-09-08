@@ -4,10 +4,12 @@ import Typography from "@mui/material/Typography";
 
 import Calendar from "@components/Calendar/Calendar";
 import SkillsGrid from "@components/SkillsGrid/SkillsGrid";
+import ProjectCards from "@components/ProjectCards/ProjectCards";
 
 export function ContentBox() {
     return (
         <Container className="h-[80vh] w-screen overflow-auto no-scrollbar relative" >
+            <Typography id="hello" className="top-0"></Typography>
             <Box
                 className="sticky top-0 left-0 w-full h-1/4 z-999 pointer-events-none"
                 style={{
@@ -22,7 +24,7 @@ export function ContentBox() {
                 }}
             >
                 
-                <Typography id="hello" variant="h1" className="text-dark-purple-600 mt-[min(15vh,14rem)]
+                <Typography variant="h1" className="text-dark-purple-600 mt-[min(15vh,14rem)]
                  drop-shadow-[0_0_1.4rem_var(--color-dark-purple-850)]">Hello !</Typography>
                 <Typography variant="h1" className="text-dark-purple-600 mt-2 
                 drop-shadow-[0_0_1.4rem_var(--color-dark-purple-850)]">Glad to see you</Typography>
@@ -48,6 +50,7 @@ export function ContentBox() {
                 <Calendar username="chosensoull" year={2025}/>
 
                 <Typography id="projects" variant="h4" className="text-dark-purple-600 mt-6 mb-6">Projects</Typography>
+                <ProjectCards/>
             </Box>
 
             <Box
