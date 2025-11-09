@@ -64,7 +64,7 @@ const ProjectCards = () => {
             <Typography variant="h5" className="text-dark-purple-600 text-center font-bold mb-2">
               {project.title}
             </Typography>
-            <Typography variant="body1" className="text-dark-purple-650 text-center">
+            <Typography variant="body1" className="text-dark-purple-650 text-center text-[clamp(0.9rem,2vw,1rem)]">
               {project.description}
             </Typography>
           </div>

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import Tabs, { tabsClasses, type TabsProps } from "@mui/material/Tabs";
 import Tab, { tabClasses } from "@mui/material/Tab";
 import { styled } from "@mui/material/styles";
+import useIsMobile from "@hooks/useIsMobile";
 
 const customColors = {
   background: "#5A199B",
@@ -10,7 +11,7 @@ const customColors = {
   textselect: "#ffffff",
 };
 
-const StyledTabs = styled(Tabs)(({ theme }) => ({
+const StyledTabs = styled(Tabs)(({ theme: _ }) => ({
   backgroundColor: customColors.background,
   borderRadius: "23px",
   minHeight: 44,
@@ -31,10 +32,10 @@ const StyledTabs = styled(Tabs)(({ theme }) => ({
   },
 }));
 
-const StyledTab = styled(Tab)(({ theme }) => ({
+const StyledTab = styled(Tab)(({ theme: _ }) => ({
   fontWeight: 500,
   minHeight: 44,
-  minWidth: 96,
+  minWidth: 0,
   opacity: 0.7,
   color: customColors.text,
   zIndex: 2,
@@ -51,6 +52,7 @@ export function MyTabs(props: TabsProps) {
   const [value, setValue] = useState(0);
   const isScrollingByClick = useRef(false); // Создаём реф для отслеживания ручного скролла
   const anchorMap = ["#hello", "#about-me", "#skills", "#projects"];
+  const isMobile = useIsMobile();
 
   const handleScroll = (newValue: number) => {
     isScrollingByClick.current = true; // Устанавливаем флаг, когда скроллинг начинается
@@ -108,7 +110,8 @@ export function MyTabs(props: TabsProps) {
 
   return (
     <StyledTabs {...props}
-      orientation="vertical"
+      variant={isMobile ? "fullWidth" : "standard"}
+      orientation={isMobile ? "horizontal": "vertical"}
       value={value}
       onChange={(_, newValue) => handleScroll(newValue)}
     >
@@ -116,21 +119,25 @@ export function MyTabs(props: TabsProps) {
             disableRipple
             label="Hello"
             iconPosition="start"
+            className="text-[clamp(0.66rem,2.5vw,0.90rem)]"
         />
         <StyledTab
             disableRipple
             label="About Me"
             iconPosition="start"
+            className="text-[clamp(0.66rem,2.5vw,0.90rem)]"
         />
         <StyledTab
             disableRipple
             label="Skills"
             iconPosition="start"
+            className="text-[clamp(0.66rem,2.5vw,0.90rem)]"
         />
         <StyledTab
             disableRipple
             label="Projects"
             iconPosition="start"
+            className="text-[clamp(0.66rem,2.5vw,0.90rem)]"
         />
     </StyledTabs>
   );

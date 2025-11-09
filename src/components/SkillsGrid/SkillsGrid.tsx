@@ -41,7 +41,7 @@ const skills = [
 const SkillsGrid = () => {
   return (
     <Box
-      className="gap-12 p-4 lg:p-10"
+      className="gap-12 md:p-4 lg:p-10"
       sx={{
         display: 'grid',
         justifyContent: 'center',

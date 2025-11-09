@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 
-export const useIsMobile = (breakpoint = 640) => {
+export const useIsMobile = () => {
+    let breakpoint: number = 640
     const [isSmall, setIsSmall] = useState(
         typeof window !== 'undefined' ? window.innerWidth < breakpoint : false
     );

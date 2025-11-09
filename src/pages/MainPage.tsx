@@ -7,7 +7,7 @@ import PCpanel from "@components/Panels/PCpanel";
 import MobilePanel from "@components/Panels/MobilePanel";
 
 export function MainLayout() {
-    const isMobile = useIsMobile(640);
+    const isMobile = useIsMobile();
 
     return (
         <motion.div
