@@ -12,11 +12,11 @@ export function Account() {
     }
 
     return (
-        <Box className="flex justify-center items-center gap-4 mt-12 w-full drop-shadow-[0_0_2rem_var(--color-dark-purple-750)]">
+        <Box className="flex sm:justify-center items-center gap-4 sm:mt-12 sm:w-full drop-shadow-[0_0_2rem_var(--color-dark-purple-750)]">
             <motion.div whileHover={{ scale: 1.1 }} >
-                <Avatar className="w-[min(6vw,100px)] h-[min(6vw,100px)] outline-3 outline-dark-purple-700" alt={user.login} src={user.avatarUrl} />
+                <Avatar className="w-[50px] h-[50px] sm:w-[min(6vw,100px)] sm:h-[min(6vw,100px)] outline-3 outline-dark-purple-700" alt={user.login} src={user.avatarUrl} />
             </motion.div>
-            <Typography variant="body1" className="text-[min(2vw,24px)] text-dark-purple-600">{user.name}</Typography>
+            <Typography variant="body1" className="text-2xl sm:text-[min(2vw,24px)] text-dark-purple-600">{user.name}</Typography>
         </Box>
     )
 }

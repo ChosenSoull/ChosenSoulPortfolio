@@ -13,12 +13,12 @@ import LeetCodeIcon from '@components/Icons/Leetcode';
 export function ContactMe() {
 
     return (
-        <Box className="w-[90%] mb-7">
+        <Box className="flex items-center justify-between sm:block sm:justify-normal sm:items-stretch p-3 sm:p-0 sm:w-[90%] sm:mb-7">
             <motion.div whileHover={{ scale: 1.1 }} >
-                <Typography variant="body1" className="flex text-[min(2vw,18px)] text-dark-purple-600 
-                    justify-center mb-4 drop-shadow-[0_0_1rem_var(--color-dark-purple-700)]">Contact me</Typography>
+                <Typography variant="body1" className="flex text-[min(5vw,18px)] sm:text-[min(2vw,18px)] text-dark-purple-600 
+                    justify-center sm:mb-4 drop-shadow-[0_0_1rem_var(--color-dark-purple-700)]">Contact me</Typography>
             </motion.div>
-            <Box className="flex justify-center gap-[min(1vw,16px)]">
+            <Box className="flex justify-center gap-3 sm:gap-[min(1vw,16px)]">
                 <Link href="https://t.me/ChosenS0ul" target="_blank" rel="noopener noreferrer">
                     <motion.div whileHover={{ scale: 1.3 }} >
                         <Icon>

@@ -1,22 +1,21 @@
-import { useState, useEffect } from 'react';
+/*
+ / Требуеться полный рефакторинг этого файла
+ / Спасибо за внимание
+*/
+
+import { useState, useEffect, useMemo } from 'react';
 import type { CalendarProps, ApiResponse, ContributionDay } from './types';
 
-const groupDaysIntoWeeks = (days: ContributionDay[]): ContributionDay[][] => {
-  const weeks: ContributionDay[][] = [];
-  let currentWeek: ContributionDay[] = [];
+// TODO: Вынести в отдельный компонент
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
 
-  days.forEach((day) => {
-    if (new Date(day.date).getDay() === 0 && currentWeek.length > 0) {
-      weeks.push(currentWeek);
-      currentWeek = [];
-    }
-    currentWeek.push(day);
-  });
-  if (currentWeek.length > 0) {
-    weeks.push(currentWeek);
-  }
-  return weeks;
-};
+const MONTHS = [
+  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+];
+// ------------------------------------
 
 const getContributionColor = (count: number): string => {
   if (count > 20) return '#E0AAFE';
@@ -24,23 +23,23 @@ const getContributionColor = (count: number): string => {
   if (count > 5) return '#9D4EDD';
   if (count > 0) return '#7B2BBE';
   return '#3A076D';
+};
 
-  /*
-    --color-dark-purple-950: #11002C;
-    --color-dark-purple-900: #240046;
-    --color-dark-purple-850: #3A076D;
-    --color-dark-purple-800: #5A199B;
-    --color-dark-purple-750: #7B2BBE;
-    --color-dark-purple-700: #9D4EDD;
-    --color-dark-purple-650: #C67DFF;
-    --color-dark-purple-600: #E0AAFE;
-  */
+const getTextColor = (count: number): string => {
+  if (count > 10) return '#4c0891ff';
+  if (count > 0) return '#fed8ffff';
+  return '#E0AAFE';
 };
 
 export function Calendar({ username, year }: CalendarProps) {
   const [contributions, setContributions] = useState<ApiResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+  // TODO: Вынести в отдельный компонент
+  const [currentMonth, setCurrentMonth] = useState<number>(new Date().getMonth());
+  const [_, setSelectedDay] = useState<ContributionDay | null>(null);
+  // ------------------------------------
 
   useEffect(() => {
     const fetchContributions = async () => {
@@ -67,6 +66,21 @@ export function Calendar({ username, year }: CalendarProps) {
     fetchContributions();
   }, [username, year]);
 
+  // TODO: Вынести в отдельный компонент
+  const monthlyContributions = useMemo(() => {
+    if (!contributions) return new Array(12).fill([]);
+    
+    const grouped: ContributionDay[][] = new Array(12).fill(0).map(() => []);
+    
+    contributions.contributions.forEach(day => {
+      const monthIndex = new Date(day.date).getMonth();
+      grouped[monthIndex].push(day);
+    });
+    
+    return grouped;
+  }, [contributions]);
+  // ------------------------------------
+
   if (loading) {
     return <div className="p-4 text-center text-gray-500">Loading...</div>;
   }
@@ -79,23 +93,91 @@ export function Calendar({ username, year }: CalendarProps) {
     return <div className="p-4 text-center text-gray-400">No contributions found for this year.</div>;
   }
   
-  const weeklyContributions = groupDaysIntoWeeks(contributions.contributions);
+  // TODO: Вынести в отдельный компонент
+  const currentMonthDays = monthlyContributions[currentMonth];
+  // ------------------------------------
 
   return (
-    <div className="flex-col inline-block p-6">
-      <div className="grid grid-flow-col gap-1 auto-cols-min p-2 bg-dark-purple-900 rounded-lg ">
-        {weeklyContributions.map((week, index) => (
-          <div key={index} className="flex flex-col gap-1">
-            {week.map((day) => (
-              <div
-                key={day.date}
-                className="w-3 h-3 rounded-sm cursor-pointer"
-                style={{ backgroundColor: getContributionColor(day.count) }}
-                title={`${day.count} contributions on ${day.date}`}
-              />
-            ))}
-          </div>
-        ))}
+    <div className="p-12">
+      {/* TODO: Вынести в отдельный компонент */}
+      <div className="flex justify-between items-center w-full">
+        <p className="text-dark-purple-600 text-3xl">Year</p>
+        <p className="text-dark-purple-600 text-3xl">{year}</p>
+      </div>
+      {/* ------------------------------------ */}
+    
+      {/* TODO: Вынести в отдельный компонент */}
+      <Box className="bg-dark-purple-950 " sx={{ width: '100%', bgcolor: 'background.paper', mb: 3 }}>
+        <Tabs
+          value={currentMonth}
+          onChange={(_, newValue) => {
+            setCurrentMonth(newValue);
+            setSelectedDay(null);
+          }}
+          variant="scrollable"
+          scrollButtons="auto"
+          aria-label="month tabs"
+          sx={{
+            '& .MuiTabs-scrollButtons': {
+              color: '#E0AAFE', 
+            },
+
+            '& .MuiTabs-indicator': {
+              backgroundColor: '#E0AAFE',
+              height: 3,
+            },
+          }}
+        >
+          {MONTHS.map((monthName, index) => (
+            <Tab 
+              key={monthName} 
+              label={monthName} 
+              value={index} 
+              className={currentMonth === index ? 'text-[#C67DFF]' : 'text-gray-400'}
+            />
+          ))}
+        </Tabs>
+      </Box>
+      {/* ------------------------------------ */}
+
+      <div className="p-2 bg-dark-purple-900 rounded-2xl lg:w-[60%] lg:mx-auto"> 
+            <div className="grid grid-cols-7 gap-1 text-center text-xl text-gray-400 mb-1">
+                <div className="text-[min(3vw,24px)]">Sun</div>
+                <div className="text-[min(3vw,24px)]">Mon</div>
+                <div className="text-[min(3vw,24px)]">Tue</div>
+                <div className="text-[min(3vw,24px)]">Wed</div>
+                <div className="text-[min(3vw,24px)]">Thu</div>
+                <div className="text-[min(3vw,24px)]">Fri</div>
+                <div className="text-[min(3vw,24px)]">Sat</div>
+            </div>
+
+            <div className="grid grid-cols-7 gap-1">
+                {(() => {
+                    if (currentMonthDays.length === 0) return null;
+                    
+                    const firstDayOfWeek = new Date(currentMonthDays[0].date).getDay();
+                    
+                    return Array.from({ length: firstDayOfWeek }).map((_, i) => (
+                        <div key={`empty-${i}`} className="w-5 h-5"></div>
+                    ));
+                })()}
+
+                {currentMonthDays.map((day: ContributionDay) => (
+                    <div key={day.date} className="flex justify-center items-center w-full h-full aspect-square"> 
+                        <div
+                            className="w-[75%] h-[75%] rounded-lg cursor-pointer transition-transform duration-100 hover:scale-110
+                                      flex justify-center items-center text-xs font-bold" 
+                            style={{ 
+                                backgroundColor: getContributionColor(day.count),
+                                color: getTextColor(day.count)
+                            }}
+                            title={`${day.count} contributions on ${day.date}`}
+                        >
+                            {new Date(day.date).getDate()}
+                        </div>
+                    </div>
+                ))}
+            </div>
       </div>
     </div>
   );
