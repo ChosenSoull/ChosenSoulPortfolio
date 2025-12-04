@@ -34,10 +34,10 @@ jobs:
               owner,
               repo,
               ref,
-              environment: 'Testing',
+              environment: 'Production',
               auto_merge: false,
               required_contexts: [],
-              description: 'Deploying to Testing via Vercel'
+              description: 'Deploying to Production'
             });
             
             core.setOutput('deployment_id', deployment.data.id);
@@ -60,7 +60,7 @@ jobs:
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
-        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy Project Artifacts to Vercel
         id: vercel_deploy
@@ -101,7 +101,7 @@ jobs:
         
   deploy-testing:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/testing'
+    if: github.ref == 'refs/heads/development'
     
     permissions:
       contents: read
@@ -123,10 +123,10 @@ jobs:
               owner,
               repo,
               ref,
-              environment: 'Testing',
+              environment: 'Development',
               auto_merge: false,
               required_contexts: [],
-              description: 'Deploying to Testing via Vercel'
+              description: 'Deploying to Development'
             });
             
             core.setOutput('deployment_id', deployment.data.id);
