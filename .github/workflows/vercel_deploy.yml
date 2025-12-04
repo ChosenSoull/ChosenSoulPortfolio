@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - main
-      - testing
+      - development
 
 jobs:
   deploy-production:
@@ -187,3 +187,4 @@ jobs:
               description: 'Deployment Failed',
               log_url: `https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}`
             });
+
