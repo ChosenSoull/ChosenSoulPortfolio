@@ -26,10 +26,15 @@ jobs:
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
-
+        
   deploy-testing:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/testing'
+    
+    permissions:
+      contents: read
+      deployments: write
+      statuses: write
 
     environment:
       name: Testing
