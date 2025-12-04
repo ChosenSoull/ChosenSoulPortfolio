@@ -1,0 +1,123 @@
+name: Vercel Pipeline
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
+on:
+  push:
+    branches:
+      - main
+      - testing
+
+jobs:
+  deploy-production:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    environment: 
+      name: Production
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build Project Artifacts
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
+  deploy-testing:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/testing'
+    
+    permissions:
+      contents: read
+      deployments: write
+      statuses: write
+
+    environment:
+      name: Testing
+      url: ${{ steps.deployment_status_success.outputs.deployment_url }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create GitHub Deployment
+        uses: actions/github-script@v7
+        id: deployment
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const ref = context.sha;
+            
+            const deployment = await github.rest.repos.createDeployment({
+              owner,
+              repo,
+              ref,
+              environment: 'Testing',
+              auto_merge: false,
+              required_contexts: [],
+              description: 'Deploying to Testing via Vercel'
+            });
+            
+            core.setOutput('deployment_id', deployment.data.id);
+
+      - name: Set Deployment Status to In Progress
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: ${{ steps.deployment.outputs.deployment_id }},
+              state: 'in_progress',
+              description: 'Building and Deploying...',
+              log_url: `https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}`
+            });
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=preview
+
+      - name: Build Project Artifacts
+        run: vercel build
+
+      - name: Deploy Project Artifacts to Vercel
+        id: vercel_deploy
+        run: |
+          # Используем >> $GITHUB_OUTPUT вместо ENV для локальных переменных шага
+          DEPLOY_URL=$(vercel deploy --prebuilt)
+          echo "url=$DEPLOY_URL" >> $GITHUB_OUTPUT
+
+      - name: Update Deployment Status (Success)
+        id: deployment_status_success
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const deployUrl = '${{ steps.vercel_deploy.outputs.url }}';
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: ${{ steps.deployment.outputs.deployment_id }},
+              state: 'success',
+              environment_url: deployUrl,
+              description: 'Deployment Successful'
+            });
+            core.setOutput('deployment_url', deployUrl);
+
+      - name: Update Deployment Status (Failure)
+        if: failure() && steps.deployment.outputs.deployment_id != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: ${{ steps.deployment.outputs.deployment_id }},
+              state: 'failure',
+              description: 'Deployment Failed',
+              log_url: `https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}`
+            });
