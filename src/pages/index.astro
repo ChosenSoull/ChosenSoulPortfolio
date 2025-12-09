@@ -15,6 +15,12 @@
  / You should have received a copy of the GNU General Public License
  / along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
+
+---
+import App from '../App.tsx';
+---
+
+
 <!doctype html>
 <html lang="en" prefix="og: https://ogp.me/ns#">
   <head>
@@ -47,8 +53,9 @@
     <link rel="apple-touch-icon" href="/assets/icons/logo.png" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div id="root">
+        <App client:only="react" />
+    </div>
   </body>
   <script type="application/ld+json">
   {

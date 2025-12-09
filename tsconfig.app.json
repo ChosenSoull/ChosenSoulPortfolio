@@ -31,12 +31,11 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
+    "jsxImportSource": "react",
     "paths": {
       "@components/*": ["./src/components/*"], 
       "@pages/*": ["./src/pages/*"],
-      "@sections/*": ["./src/sections/*"],
       "@hooks/*": ["./src/hooks/*"],
-      "@utils/*": ["./src/utils/*"]
     },
     
     /* Linting */

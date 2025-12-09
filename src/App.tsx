@@ -18,21 +18,33 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Loader from '@components/Loader/Loader';
+import { GlobalStyles } from '@mui/material';
+import { StyledEngineProvider } from '@mui/material';
 import "./App.css";
 
-const MainPage = React.lazy(() => import('@pages/MainPage'));
-const Error404Page = React.lazy(() => import('@pages/Error404Page')); 
+const MainPage = React.lazy(() => import('@components/MainPage'));
+const Error404Page = React.lazy(() => import('@components/Error404Page'));
 
 function App() {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker
+        .register('/sw.js')
+    });
+  }
+
   return (
-      <BrowserRouter>
-        <Suspense fallback={<Loader />}>
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="*" element={<Error404Page />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>  
+    <StyledEngineProvider enableCssLayer>
+      <GlobalStyles styles="@layer theme, base, mui, components, utilities;" />
+        <BrowserRouter>
+          <Suspense fallback={<Loader />}>
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+              <Route path="*" element={<Error404Page />} />
+            </Routes>
+          </Suspense>
+        </BrowserRouter>
+    </StyledEngineProvider>
   );
 }
 
