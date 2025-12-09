@@ -15,13 +15,14 @@
  / You should have received a copy of the GNU General Public License
  / along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+import React from "react";
 import { motion } from "framer-motion";
 
 import useIsMobile from "@hooks/useIsMobile";
 import ContentBox from "@components/ContentBox/ContentBox";
 
-import PCpanel from "@components/Panels/PCpanel";
-import MobilePanel from "@components/Panels/MobilePanel";
+const PCpanel = React.lazy(() => import("@components/Panels/PCpanel"));
+const MobilePanel = React.lazy(() => import("@components/Panels/MobilePanel"));
 
 export function MainLayout() {
     const isMobile = useIsMobile();

@@ -15,13 +15,14 @@
  / You should have received a copy of the GNU General Public License
  / along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+import React from "react";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import Calendar from "@components/Calendar/Calendar";
-import SkillsGrid from "@components/SkillsGrid/SkillsGrid";
-import ProjectCards from "@components/ProjectCards/ProjectCards";
+const ProjectCards = React.lazy(() => import("@components/ProjectCards/ProjectCards"));
+const SkillsGrid = React.lazy(() => import("@components/SkillsGrid/SkillsGrid"));
+const Calendar = React.lazy(() => import("@components/Calendar/Calendar"));
 
 export function ContentBox() {
     const currentDate = new Date();
