@@ -5,11 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
+    "start": "tsc -b && astro dev",
     "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+    "preview": "astro preview"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
