@@ -109,5 +109,5 @@ npm run build
 
 ```sh
 docker build -t chosensoul-portfolio:latest . && \
-docker run -d -rm -p 5173:5173 --name portfolio chosensoul-portfolio:latest
+docker run -d --rm -p 5173:5173 --name portfolio chosensoul-portfolio:latest
 ```
