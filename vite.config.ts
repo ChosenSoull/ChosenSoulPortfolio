@@ -26,11 +26,11 @@ import path from 'path';
 const manifest: Partial<ManifestOptions> = {
   name: 'ChosenSoul | Portfolio',
   short_name: 'ChosenSoul',
-  description: 'NULL',
+  description: 'Portfolio of a programmer enthusiast frontend-embedded.',
   start_url: '/',
   display: 'standalone',
-  background_color: '#3d3c3c',
-  theme_color: '#000000',
+  background_color: '#11002C',
+  theme_color: '#11002C',
   lang: 'en',
   icons: [
     {
