@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "start": "tsc -b && astro dev",
-    "build": "astro build",
+    "start": "astro dev",
+    "build": "tsc -b && astro build",
     "preview": "astro preview"
   },
   "dependencies": {
