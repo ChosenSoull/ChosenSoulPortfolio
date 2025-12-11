@@ -96,20 +96,8 @@ export default defineConfig({
                       maxAgeSeconds: 7 * 24 * 60 * 60
                     }
                   }
-                },
-                {
-                  urlPattern: '/offline',
-                  handler: 'CacheFirst',
-                  options: {
-                    cacheName: 'offline-page',
-                    expiration: {
-                      maxEntries: 1
-                    }
-                  }
                 }
-              ],
-              navigateFallback: '/offline',
-              navigateFallbackDenylist: [/^\/offline$/],
+              ]
             }
           }) as any,
         ],
@@ -122,4 +110,5 @@ export default defineConfig({
             },
         },
     },
+
 });
