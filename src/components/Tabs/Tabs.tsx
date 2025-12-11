@@ -20,6 +20,7 @@ import Tabs, { tabsClasses, type TabsProps } from "@mui/material/Tabs";
 import Tab, { tabClasses } from "@mui/material/Tab";
 import { styled } from "@mui/material/styles";
 import useIsMobile from "@hooks/useIsMobile";
+import { useLocale } from "@locale/locale";
 
 const customColors = {
   background: "#5A199B",
@@ -70,6 +71,7 @@ export function MyTabs(props: TabsProps) {
   const isScrollingByClick = useRef(false); // Создаём реф для отслеживания ручного скролла
   const anchorMap = ["#hello", "#about-me", "#skills", "#projects"];
   const isMobile = useIsMobile();
+  const [ t ] = useLocale();
 
   const handleScroll = (newValue: number) => {
     isScrollingByClick.current = true; // Устанавливаем флаг, когда скроллинг начинается
@@ -134,25 +136,25 @@ export function MyTabs(props: TabsProps) {
     >
         <StyledTab
             disableRipple
-            label="Hello"
+            label={t("tabs.hello")}
             iconPosition="start"
             className="text-[clamp(0.66rem,2.5vw,0.90rem)]"
         />
         <StyledTab
             disableRipple
-            label="About Me"
+            label={t("tabs.About Me")}
             iconPosition="start"
             className="text-[clamp(0.66rem,2.5vw,0.90rem)]"
         />
         <StyledTab
             disableRipple
-            label="Skills"
+            label={t("tabs.Skills")}
             iconPosition="start"
             className="text-[clamp(0.66rem,2.5vw,0.90rem)]"
         />
         <StyledTab
             disableRipple
-            label="Projects"
+            label={t("tabs.Projects")}
             iconPosition="start"
             className="text-[clamp(0.66rem,2.5vw,0.90rem)]"
         />

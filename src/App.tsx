@@ -20,6 +20,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Loader from '@components/Loader/Loader';
 import { GlobalStyles } from '@mui/material';
 import { StyledEngineProvider } from '@mui/material';
+import { I18nextProvider } from 'react-i18next';
+import { useInitLocale } from '@locale/locale';
+import i18n from '@locale/i18n';
 import "./App.css";
 
 const MainPage = React.lazy(() => import('@components/MainPage'));
@@ -33,18 +36,22 @@ function App() {
     });
   }
 
+  useInitLocale();
+
   return (
-    <StyledEngineProvider enableCssLayer>
-      <GlobalStyles styles="@layer theme, base, mui, components, utilities;" />
-        <BrowserRouter>
-          <Suspense fallback={<Loader />}>
-            <Routes>
-              <Route path="/" element={<MainPage />} />
-              <Route path="*" element={<Error404Page />} />
-            </Routes>
-          </Suspense>
-        </BrowserRouter>
-    </StyledEngineProvider>
+    <I18nextProvider i18n={i18n}>
+      <StyledEngineProvider enableCssLayer>
+        <GlobalStyles styles="@layer theme, base, mui, components, utilities;" />
+          <BrowserRouter>
+            <Suspense fallback={<Loader />}>
+              <Routes>
+                <Route path="/" element={<MainPage />} /> 
+                <Route path="*" element={<Error404Page />} />
+              </Routes>
+            </Suspense>
+          </BrowserRouter>
+      </StyledEngineProvider>
+    </I18nextProvider>
   );
 }
 

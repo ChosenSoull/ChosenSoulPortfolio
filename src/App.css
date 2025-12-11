@@ -37,6 +37,7 @@ html,body {
     user-select: none;
 
     font-family: 'JekoDEMO-ExtraBold', sans-serif;
+    font-weight: bold;
 }
 
 @font-face {
@@ -64,5 +65,11 @@ html,body {
 
   .no-scrollbar::-webkit-scrollbar {
     display: none; /* Для WebKit-браузеров */
+  }
+}
+
+@media (min-width: 640px) {
+  .iconLANG {
+    position: fixed;
   }
 }

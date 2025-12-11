@@ -23,16 +23,13 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import type { CalendarProps, ApiResponse, ContributionDay } from './types';
+import { useLocale } from '@locale/locale';
 
 // TODO: Вынести в отдельный компонент
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 
-const MONTHS = [
-  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
-  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-];
 // ------------------------------------
 
 const getContributionColor = (count: number): string => {
@@ -53,11 +50,25 @@ export function Calendar({ username, year }: CalendarProps) {
   const [contributions, setContributions] = useState<ApiResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
+  const [ t ] = useLocale();
   // TODO: Вынести в отдельный компонент
   const [currentMonth, setCurrentMonth] = useState<number>(new Date().getMonth());
   const [_, setSelectedDay] = useState<ContributionDay | null>(null);
   // ------------------------------------
+  const MONTHS = [
+      t('months.jan'),
+      t('months.feb'),
+      t('months.mar'),
+      t('months.apr'),
+      t('months.may'),
+      t('months.jun'),
+      t('months.jul'),
+      t('months.aug'),
+      t('months.sep'),
+      t('months.oct'),
+      t('months.nov'),
+      t('months.dec')
+  ];
 
   useEffect(() => {
     const fetchContributions = async () => {
@@ -119,7 +130,7 @@ export function Calendar({ username, year }: CalendarProps) {
     <div className="p-12">
       {/* TODO: Вынести в отдельный компонент */}
       <div className="flex justify-between items-center w-full">
-        <p className="text-dark-purple-600 text-3xl">Year</p>
+        <p className="text-dark-purple-600 text-3xl">{t("Year")}</p>
         <p className="text-dark-purple-600 text-3xl">{year}</p>
       </div>
       {/* ------------------------------------ */}
@@ -160,13 +171,13 @@ export function Calendar({ username, year }: CalendarProps) {
 
       <div className="p-2 bg-dark-purple-900 rounded-2xl lg:w-[60%] lg:mx-auto"> 
             <div className="grid grid-cols-7 gap-1 text-center text-xl text-gray-400 mb-1">
-                <div className="text-[min(3vw,24px)]">Sun</div>
-                <div className="text-[min(3vw,24px)]">Mon</div>
-                <div className="text-[min(3vw,24px)]">Tue</div>
-                <div className="text-[min(3vw,24px)]">Wed</div>
-                <div className="text-[min(3vw,24px)]">Thu</div>
-                <div className="text-[min(3vw,24px)]">Fri</div>
-                <div className="text-[min(3vw,24px)]">Sat</div>
+                <div className="text-[min(3vw,24px)]">{t("days.sun")}</div>
+                <div className="text-[min(3vw,24px)]">{t("days.mon")}</div>
+                <div className="text-[min(3vw,24px)]">{t("days.tue")}</div>
+                <div className="text-[min(3vw,24px)]">{t("days.wed")}</div>
+                <div className="text-[min(3vw,24px)]">{t("days.thu")}</div>
+                <div className="text-[min(3vw,24px)]">{t("days.fri")}</div>
+                <div className="text-[min(3vw,24px)]">{t("days.sat")}</div>
             </div>
 
             <div className="grid grid-cols-7 gap-1">
