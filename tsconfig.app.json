@@ -36,6 +36,7 @@
       "@components/*": ["./src/components/*"], 
       "@pages/*": ["./src/pages/*"],
       "@hooks/*": ["./src/hooks/*"],
+      "@locale/*": ["./src/locale/*"],
     },
     
     /* Linting */

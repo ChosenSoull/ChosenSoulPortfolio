@@ -22,6 +22,7 @@ import Account from "@components/Account/Account";
 import ContactMe from "@components/ContactMe/ContactMe";
 import { motion, AnimatePresence } from 'framer-motion';
 import Arrow from "@components/Icons/Arrow";
+import TranslationButton from "@components/TranslationButton/TranslationButton";
 
 export function MobilePanel() {
     const [isOpen, setIsOpen] = useState(false);
@@ -37,14 +38,17 @@ export function MobilePanel() {
             top-[15px] left-[10px] right-[10px]">
                 <Box className="flex justify-between items-center p-3">
                     <Account />
-                    <motion.div
-                        animate={{ rotate: isOpen ? 270 : 90 }}
-                        transition={{ duration: 0.3 }}
-                        onClick={togglePanel}
-                        className="h-12 w-12 fill-dark-purple-600 cursor-pointer" 
-                    >
-                        <Arrow className="h-full w-full" />
-                    </motion.div>
+                    <Box className="flex ">
+                        <TranslationButton/>
+                        <motion.div
+                            animate={{ rotate: isOpen ? 270 : 90 }}
+                            transition={{ duration: 0.3 }}
+                            onClick={togglePanel}
+                            className="ml-4 h-12 w-12 fill-dark-purple-600 cursor-pointer" 
+                        >
+                            <Arrow className="h-full w-full" />
+                        </motion.div>
+                    </Box>
                 </Box>
 
                 <AnimatePresence initial={false}>
