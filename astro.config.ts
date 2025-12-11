@@ -67,6 +67,7 @@ export default defineConfig({
           (tailwindcss as any)(),
           VitePWA({
             registerType: 'autoUpdate',
+            injectRegister: 'auto',
             manifest: manifest,
             workbox: {
               globPatterns: ['**/*.{ico,png,jpg,jpeg,svg,woff,woff2}'],
@@ -112,3 +113,4 @@ export default defineConfig({
     },
 
 });
+
