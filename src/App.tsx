@@ -29,13 +29,6 @@ const MainPage = React.lazy(() => import('@components/MainPage'));
 const Error404Page = React.lazy(() => import('@components/Error404Page'));
 
 function App() {
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker
-        .register('/sw.js')
-    });
-  }
-
   useInitLocale();
 
   return (
@@ -54,5 +47,6 @@ function App() {
     </I18nextProvider>
   );
 }
+
 
 export default App;
