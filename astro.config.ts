@@ -17,7 +17,7 @@
 */
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
-import { VitePWA } from 'vite-plugin-pwa';
+import AstroPWA from '@vite-pwa/astro'
 import { type ManifestOptions } from 'vite-plugin-pwa';
 import tailwindcss from '@tailwindcss/vite';
 import yaml from '@rollup/plugin-yaml';
@@ -48,7 +48,45 @@ const manifest: Partial<ManifestOptions> = {
 };
 
 export default defineConfig({
-    integrations: [react()], 
+    integrations: [
+      react(),
+      AstroPWA({
+            registerType: 'autoUpdate',
+            injectRegister: 'auto',
+            manifest: manifest,
+            workbox: {
+              globPatterns: ['**/*.{ico,png,jpg,jpeg,svg,woff,woff2}'],
+              runtimeCaching: [
+                {
+                  urlPattern: ({ request }) => request.mode === 'navigate',
+                  handler: 'NetworkFirst',
+                  options: {
+                    cacheName: 'pages',
+                    networkTimeoutSeconds: 3
+                  }
+                },
+                {
+                  urlPattern: /\.(?:html|css|js)$/i,
+                  handler: 'NetworkFirst',
+                  options: {
+                    cacheName: 'no-cache'
+                  }
+                },
+                {
+                  urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico|woff|woff2|ttf|otf)$/i,
+                  handler: 'CacheFirst',
+                  options: {
+                cacheName: 'assets',
+                expiration: {
+                  maxEntries: 100,
+                  maxAgeSeconds: 7 * 24 * 60 * 60
+                }
+              }
+            }
+          ]
+        }
+      })
+    ], 
 
     server: {
       port: 5173
@@ -65,53 +103,6 @@ export default defineConfig({
         plugins: [
           yaml(),
           (tailwindcss as any)(),
-          VitePWA({
-            registerType: 'autoUpdate',
-            manifest: manifest,
-            workbox: {
-              globPatterns: ['**/*.{ico,png,jpg,jpeg,svg,woff,woff2}'],
-              runtimeCaching: [
-                {
-                  urlPattern: ({ request }) => request.mode === 'navigate',
-                  handler: 'NetworkFirst',
-                  options: {
-                    cacheName: 'pages',
-                    networkTimeoutSeconds: 3
-                  }
-                },
-                {
-                  urlPattern: /\.(?:html|css|js)$/i,
-                  handler: 'NetworkOnly',
-                  options: {
-                    cacheName: 'no-cache'
-                  }
-                },
-                {
-                  urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico|woff|woff2|ttf|otf)$/i,
-                  handler: 'CacheFirst',
-                  options: {
-                    cacheName: 'assets',
-                    expiration: {
-                      maxEntries: 100,
-                      maxAgeSeconds: 7 * 24 * 60 * 60
-                    }
-                  }
-                },
-                {
-                  urlPattern: '/offline',
-                  handler: 'CacheFirst',
-                  options: {
-                    cacheName: 'offline-page',
-                    expiration: {
-                      maxEntries: 1
-                    }
-                  }
-                }
-              ],
-              navigateFallback: '/offline',
-              navigateFallbackDenylist: [/^\/offline$/],
-            }
-          }) as any,
         ],
         resolve: {
             alias: {
@@ -122,4 +113,6 @@ export default defineConfig({
             },
         },
     },
+
 });
+
