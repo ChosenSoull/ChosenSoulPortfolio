@@ -17,6 +17,7 @@
     "@mui/material": "^7.3.6",
     "@rollup/plugin-yaml": "^4.1.2",
     "@tailwindcss/vite": "^4.1.17",
+    "@vite-pwa/astro": "^1.2.0",
     "astro": "^5.16.4",
     "dompurify": "^3.3.1",
     "framer-motion": "^12.23.25",
@@ -25,8 +26,7 @@
     "react-dom": "^19.2.1",
     "react-i18next": "^16.4.1",
     "react-router-dom": "^7.10.1",
-    "tailwindcss": "^4.1.17",
-    "vite-plugin-pwa": "^1.2.0"
+    "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

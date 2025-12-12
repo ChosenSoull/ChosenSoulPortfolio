@@ -17,7 +17,7 @@
 */
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
-import { VitePWA } from 'vite-plugin-pwa';
+import AstroPWA from '@vite-pwa/astro'
 import { type ManifestOptions } from 'vite-plugin-pwa';
 import tailwindcss from '@tailwindcss/vite';
 import yaml from '@rollup/plugin-yaml';
@@ -48,24 +48,9 @@ const manifest: Partial<ManifestOptions> = {
 };
 
 export default defineConfig({
-    integrations: [react()], 
-
-    server: {
-      port: 5173
-    },
-
-    output: 'static',
-    adapter: vercel({
-      isr: {
-        expiration: 60 * 60 * 48,
-      },
-    }),
-
-    vite: { 
-        plugins: [
-          yaml(),
-          (tailwindcss as any)(),
-          VitePWA({
+    integrations: [
+      react(),
+      AstroPWA({
             registerType: 'autoUpdate',
             injectRegister: 'auto',
             manifest: manifest,
@@ -82,7 +67,7 @@ export default defineConfig({
                 },
                 {
                   urlPattern: /\.(?:html|css|js)$/i,
-                  handler: 'NetworkOnly',
+                  handler: 'NetworkFirst',
                   options: {
                     cacheName: 'no-cache'
                   }
@@ -91,16 +76,33 @@ export default defineConfig({
                   urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico|woff|woff2|ttf|otf)$/i,
                   handler: 'CacheFirst',
                   options: {
-                    cacheName: 'assets',
-                    expiration: {
-                      maxEntries: 100,
-                      maxAgeSeconds: 7 * 24 * 60 * 60
-                    }
-                  }
+                cacheName: 'assets',
+                expiration: {
+                  maxEntries: 100,
+                  maxAgeSeconds: 7 * 24 * 60 * 60
                 }
-              ]
+              }
             }
-          }) as any,
+          ]
+        }
+      })
+    ], 
+
+    server: {
+      port: 5173
+    },
+
+    output: 'static',
+    adapter: vercel({
+      isr: {
+        expiration: 60 * 60 * 48,
+      },
+    }),
+
+    vite: { 
+        plugins: [
+          yaml(),
+          (tailwindcss as any)(),
         ],
         resolve: {
             alias: {
