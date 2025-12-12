@@ -51,31 +51,31 @@ export default defineConfig({
     integrations: [
       react(),
       AstroPWA({
-            registerType: 'autoUpdate',
-            injectRegister: 'auto',
-            manifest: manifest,
-            workbox: {
-              globPatterns: ['**/*.{ico,png,jpg,jpeg,svg,woff,woff2}'],
-              runtimeCaching: [
-                {
-                  urlPattern: ({ request }) => request.mode === 'navigate',
-                  handler: 'NetworkFirst',
-                  options: {
-                    cacheName: 'pages',
-                    networkTimeoutSeconds: 3
-                  }
-                },
-                {
-                  urlPattern: /\.(?:html|css|js)$/i,
-                  handler: 'NetworkFirst',
-                  options: {
-                    cacheName: 'no-cache'
-                  }
-                },
-                {
-                  urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico|woff|woff2|ttf|otf)$/i,
-                  handler: 'CacheFirst',
-                  options: {
+        registerType: 'autoUpdate',
+        injectRegister: 'script',
+        manifest: manifest,
+          workbox: {
+            globPatterns: ['**/*.{ico,png,jpg,jpeg,svg,woff,woff2}'],
+            runtimeCaching: [
+            {
+              urlPattern: ({ request }) => request.mode === 'navigate',
+              handler: 'NetworkFirst',
+              options: {
+                cacheName: 'pages',
+                networkTimeoutSeconds: 3
+              }
+            },
+            {
+              urlPattern: /\.(?:html|css|js)$/i,
+              handler: 'NetworkFirst',
+              options: {
+                cacheName: 'no-cache'
+              }
+            },
+            {
+              urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico|woff|woff2|ttf|otf)$/i,
+              handler: 'CacheFirst',
+              options: {
                 cacheName: 'assets',
                 expiration: {
                   maxEntries: 100,
