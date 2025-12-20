@@ -33,7 +33,7 @@ export function MobilePanel() {
 
     return(
         <Box>
-            <Box className="bg-dark-purple-850 rounded-3xl overflow-hidden w-auto fixed z-999
+            <Box className="bg-dark-purple-850 rounded-3xl overflow-hidden w-auto fixed z-998
             outline-3 outline-dark-purple-650 drop-shadow-[0_0_1rem_var(--color-dark-purple-800)]
             top-[15px] left-[10px] right-[10px]">
                 <Box className="flex justify-between items-center p-3">
@@ -69,7 +69,7 @@ export function MobilePanel() {
             </Box>
 
 
-            <MyTabs className="fixed z-999 w-auto outline-3 outline-dark-purple-650 drop-shadow-[0_0_1rem_var(--color-dark-purple-750)]
+            <MyTabs className="fixed z-998 w-auto outline-3 outline-dark-purple-650 drop-shadow-[0_0_1rem_var(--color-dark-purple-750)]
             bottom-[15px] left-[10px] right-[10px] p-2"/>
         </Box>
     )

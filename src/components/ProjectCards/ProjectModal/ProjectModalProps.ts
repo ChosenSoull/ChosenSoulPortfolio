@@ -15,4 +15,9 @@
  / You should have received a copy of the GNU General Public License
  / along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-/// <reference types="vite/client" />
+import { type Project } from "@components/ProjectCards/ProjectData";
+
+export interface ProjectModalProps {
+  project: Project | null;
+  onClose: () => void;
+}

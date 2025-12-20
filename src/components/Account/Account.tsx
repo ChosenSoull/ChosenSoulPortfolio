@@ -20,12 +20,12 @@ import { motion } from "framer-motion";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import getGithubUserInfo from '@hooks/getGithubUserInfo';
+import getGithubUserInfo from '@hooks/useGetGithubUserInfo';
 
 export function Account() {
     const { user } = getGithubUserInfo('chosensoull');
     if (!user) {
-        return <div className="w-screen h-screen text-dark-purple-600 justify-center items-center">User not found</div>
+        return <div className="text-dark-purple-600">User not found</div>
     }
 
     return (

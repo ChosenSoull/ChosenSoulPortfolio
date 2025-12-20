@@ -48,27 +48,26 @@ const getTextColor = (count: number): string => {
 
 export function Calendar({ username, year }: CalendarProps) {
   const [contributions, setContributions] = useState<ApiResponse | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [ t ] = useLocale();
   // TODO: Вынести в отдельный компонент
   const [currentMonth, setCurrentMonth] = useState<number>(new Date().getMonth());
   const [_, setSelectedDay] = useState<ContributionDay | null>(null);
   // ------------------------------------
-  const MONTHS = [
-      t('months.jan'),
-      t('months.feb'),
-      t('months.mar'),
-      t('months.apr'),
-      t('months.may'),
-      t('months.jun'),
-      t('months.jul'),
-      t('months.aug'),
-      t('months.sep'),
-      t('months.oct'),
-      t('months.nov'),
-      t('months.dec')
-  ];
+  const MONTHS = useMemo(() => [
+    t('months.jan'),
+    t('months.feb'),
+    t('months.mar'),
+    t('months.apr'),
+    t('months.may'),
+    t('months.jun'),
+    t('months.jul'),
+    t('months.aug'),
+    t('months.sep'),
+    t('months.oct'),
+    t('months.nov'),
+    t('months.dec')
+  ], [t]);
 
   useEffect(() => {
     const fetchContributions = async () => {
@@ -87,8 +86,6 @@ export function Calendar({ username, year }: CalendarProps) {
         } else {
           setError('An unknown error occurred.');
         }
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -110,16 +107,14 @@ export function Calendar({ username, year }: CalendarProps) {
   }, [contributions]);
   // ------------------------------------
 
-  if (loading) {
-    return <div className="p-4 text-center text-gray-500">Loading...</div>;
-  }
-
   if (error) {
-    return <div className="p-4 text-center text-red-500">Error: {error}</div>;
+    return <div className="p-4 flex-1 w-full flex items-center justify-center text-center 
+    text-[clamp(1rem,8vw,2rem)] text-red-500">Error: {error}</div>;
   }
 
   if (!contributions || contributions.contributions.length === 0) {
-    return <div className="p-4 text-center text-gray-400">No contributions found for this year.</div>;
+    return <div className="p-4 flex-1 w-full flex items-center justify-center text-center 
+    text-dark-purple-700 text-[clamp(1rem,8vw,2rem)]">No contributions found for this year.</div>;
   }
   
   // TODO: Вынести в отдельный компонент
@@ -162,7 +157,7 @@ export function Calendar({ username, year }: CalendarProps) {
               key={monthName} 
               label={monthName} 
               value={index} 
-              className={currentMonth === index ? 'text-[#C67DFF]' : 'text-gray-400'}
+              className={currentMonth === index ? 'text-dark-purple-600' : 'text-dark-purple-750'}
             />
           ))}
         </Tabs>
@@ -170,7 +165,7 @@ export function Calendar({ username, year }: CalendarProps) {
       {/* ------------------------------------ */}
 
       <div className="p-2 bg-dark-purple-900 rounded-2xl lg:w-[60%] lg:mx-auto"> 
-            <div className="grid grid-cols-7 gap-1 text-center text-xl text-gray-400 mb-1">
+            <div className="grid grid-cols-7 gap-1 text-center text-xl text-dark-purple-600 mb-1">
                 <div className="text-[min(3vw,24px)]">{t("days.sun")}</div>
                 <div className="text-[min(3vw,24px)]">{t("days.mon")}</div>
                 <div className="text-[min(3vw,24px)]">{t("days.tue")}</div>

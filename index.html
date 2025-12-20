@@ -15,12 +15,6 @@
  / You should have received a copy of the GNU General Public License
  / along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
-
----
-import App from '../App.tsx';
----
-
-
 <!doctype html>
 <html lang="en" prefix="og: https://ogp.me/ns#">
   <head>
@@ -58,9 +52,8 @@ import App from '../App.tsx';
     <link rel="apple-touch-icon" href="/assets/icons/logo.png" />
   </head>
   <body>
-    <div id="root">
-        <App client:only="react" />
-    </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
   <script src="/registerSW.js" is:inline></script>
   <script type="application/ld+json">
@@ -74,15 +67,6 @@ import App from '../App.tsx';
       "https://t.me/ChosenS0ul"
     ]
   }
-  </script>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-S4GHYFJXNE"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-  
-    gtag('config', 'G-S4GHYFJXNE');
   </script>
 </html>
 

@@ -15,4 +15,13 @@
  / You should have received a copy of the GNU General Public License
  / along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-/// <reference types="vite/client" />
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+
+import App from './App.tsx'
+
+createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+        <App />
+    </StrictMode>,
+)

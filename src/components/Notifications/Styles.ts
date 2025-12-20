@@ -15,4 +15,19 @@
  / You should have received a copy of the GNU General Public License
  / along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-/// <reference types="vite/client" />
+import { MaterialDesignContent } from 'notistack';
+import { styled } from '@mui/material/styles';
+
+export const StyledNotifications = styled(MaterialDesignContent)(({ theme: _ }) => ({
+  display: 'flex',
+  flexDirection: 'column', 
+  alignItems: 'flex-start',
+  gap: '12px',
+  padding: '16px 24px',
+  fontSize: '18px',
+  outline: '3px solid var(--color-dark-purple-650)',
+  filter: 'drop-shadow(0 0 1rem var(--color-dark-purple-750))',
+  backgroundColor: 'var(--color-dark-purple-850)',
+  borderRadius: '24px',
+  color: 'var(--color-dark-purple-600)',
+}));

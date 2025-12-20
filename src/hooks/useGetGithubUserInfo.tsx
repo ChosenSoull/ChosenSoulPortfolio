@@ -23,7 +23,7 @@ interface GithubUser {
   login: string;
 }
 
-const getGithubUserInfo = (username: string) => {
+export const getGithubUserInfo = (username: string) => {
   const [user, setUser] = useState<GithubUser | null>(null);
   
   useEffect(() => {
