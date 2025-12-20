@@ -15,14 +15,14 @@
  / You should have received a copy of the GNU General Public License
  / along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
-import AstroPWA from '@vite-pwa/astro'
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import { VitePWA } from 'vite-plugin-pwa';
 import { type ManifestOptions } from 'vite-plugin-pwa';
-import tailwindcss from '@tailwindcss/vite';
-import yaml from '@rollup/plugin-yaml';
+import tailwindcss from '@tailwindcss/vite'
+import babel from 'vite-plugin-babel';
+
 import path from 'path';
-import vercel from '@astrojs/vercel';
 
 const manifest: Partial<ManifestOptions> = {
   name: 'ChosenSoul | Portfolio',
@@ -47,10 +47,21 @@ const manifest: Partial<ManifestOptions> = {
   ],
 };
 
-export default defineConfig({
-    integrations: [
+export default defineConfig(({}) => {
+  return {
+    server: {
+      port: 5173
+    },
+
+    plugins: [
       react(),
-      AstroPWA({
+      babel({
+        babelConfig: {
+          plugins: ['babel-plugin-react-compiler'],
+        },
+      }),
+      tailwindcss(),
+      VitePWA({
         registerType: 'autoUpdate',
         injectRegister: 'script',
         manifest: manifest,
@@ -86,33 +97,14 @@ export default defineConfig({
           ]
         }
       })
-    ], 
-
-    server: {
-      port: 5173
-    },
-
-    output: 'static',
-    adapter: vercel({
-      isr: {
-        expiration: 60 * 60 * 48,
+    ],
+    resolve: {
+      alias: {
+        '@components': path.resolve(__dirname, './src/components'),
+        '@pages': path.resolve(__dirname, './src/pages'),
+        '@hooks': path.resolve(__dirname, './src/hooks'),
+        '@locale': path.resolve(__dirname, './src/locale'),
       },
-    }),
-
-    vite: { 
-        plugins: [
-          yaml(),
-          (tailwindcss as any)(),
-        ],
-        resolve: {
-            alias: {
-                '@components': path.resolve(process.cwd(), './src/components'),
-                '@pages': path.resolve(process.cwd(), './src/pages'),
-                '@hooks': path.resolve(process.cwd(), './src/hooks'),
-                '@locale': path.resolve(process.cwd(), './src/locale'),
-            },
-        },
     },
-
+  };
 });
-

@@ -16,10 +16,16 @@
  / along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 import React from "react";
+import { useEffect, useRef, Suspense } from "react";
+import { useInView } from 'react-intersection-observer';
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useLocale } from "@locale/locale";
+import { useInteractiveNotification } from "@hooks/Notifications/useInteractiveNotification";
+import { useStaticNotification } from "@hooks/Notifications/useStaticNotification";
+import { initGA } from "@hooks/useGoogleAnalytics";
+import { AutoTrigger } from "../AutoTrigger/AutoTrigger";
 
 const ProjectCards = React.lazy(() => import("@components/ProjectCards/ProjectCards"));
 const SkillsGrid = React.lazy(() => import("@components/SkillsGrid/SkillsGrid"));
@@ -29,12 +35,49 @@ export function ContentBox() {
     const currentDate = new Date();
     const currentYear: number = currentDate.getFullYear();
     const [ t ] = useLocale();
+    const { ref, inView } = useInView({ triggerOnce: true });
+
+    const ShowIntNotification = useInteractiveNotification();
+    const ShowStaticNotification = useStaticNotification();
+
+    const isMounted = useRef(false);
+    useEffect(() => {
+        if (isMounted.current) return;
+        isMounted.current = true;
+
+        const cookie = localStorage.getItem('cookie');
+
+        if (cookie == "yes") {
+            initGA("G-S4GHYFJXNE");
+        } else if (cookie == "no") {
+
+        } else {
+            ShowIntNotification("Cookie", 
+            () => {
+                localStorage.setItem("cookie", "yes");
+                initGA("G-S4GHYFJXNE");
+            }, 
+            () => {
+                localStorage.setItem("cookie", "no");
+            }
+            );
+        }
+    }, []);
+
+    const PutStarrGithubRepo = () => {
+        ShowStaticNotification(
+            <div className="flex gap-x-2 whitespace-nowrap">
+                <p>{t("PutStarrGithub")}</p>
+                <a className="text-dark-purple-700" href="https://github.com/ChosenSoull/ChosenSoulPortfolio">{t("repo")}</a>
+            </div>
+        )
+    }
 
     return (
         <Container className="h-[80vh] w-screen overflow-auto no-scrollbar relative" >
             <Typography id="hello" className="top-0"></Typography>
             <Box
-                className="sticky top-0 left-0 w-full h-1/4 z-998 pointer-events-none"
+                className="sticky top-0 left-0 w-full h-1/4 z-997 pointer-events-none"
                 style={{
                     backgroundImage: 'linear-gradient(to bottom, var(--color-dark-purple-950), transparent)',
                 }}
@@ -61,16 +104,30 @@ export function ContentBox() {
 
                 <Typography id="skills" variant="h3" className="text-dark-purple-600 mb-6 text-[clamp(1rem,8vw,3rem)]">{t("My Skils")}</Typography>
                 <SkillsGrid/>
-                <Typography variant="h4" className="text-dark-purple-600 p-6 text-[clamp(1rem,8vw,2rem)]">{t("My activity github")}</Typography>
-                <Calendar username="chosensoull" year={currentYear}/>
-                
 
-                <Typography id="projects" variant="h3" className="text-dark-purple-600 mt-6 mb-6 text-[clamp(1rem,8vw,3rem)]">{t("tabs.Projects")}</Typography>
+                <Typography variant="h4" className="text-dark-purple-600 p-6 text-[clamp(1rem,8vw,2rem)]">{t("My activity github")}</Typography>
+                <div ref={ref} className="flex flex-col">
+                    {inView && (
+                        <Suspense fallback={
+                            <div className="flex-1 w-full flex items-center justify-center text-center text-dark-purple-600 text-[clamp(1rem,8vw,2rem)]">
+                                {t("Loading")}
+                            </div>
+                        }>
+                            <Calendar username="chosensoull" year={currentYear}/>
+                        </Suspense>
+                    )}
+                </div>
+
+                <Typography id="projects" variant="h3" className="text-dark-purple-600 mt-6 sm:mb-6 text-[clamp(1rem,8vw,3rem)]">{t("tabs.Projects")}</Typography>
                 <ProjectCards/>
+
+                <AutoTrigger variant="infinity" minH="1px" onVisible={PutStarrGithubRepo}>
+                    <div></div>
+                </AutoTrigger>
             </Box>
 
             <Box
-                className="sticky bottom-0 left-0 w-full h-1/4 z-998 m-0 pointer-events-none"
+                className="sticky bottom-0 left-0 w-full h-1/4 z-997 m-0 pointer-events-none"
                 style={{
                     backgroundImage: 'linear-gradient(to top, var(--color-dark-purple-950), transparent)',
                 }}

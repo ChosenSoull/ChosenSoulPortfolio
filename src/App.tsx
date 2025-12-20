@@ -15,7 +15,7 @@
  / You should have received a copy of the GNU General Public License
  / along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-import React, { Suspense } from 'react';
+import React, { Suspense, useMemo } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Loader from '@components/Loader/Loader';
 import { GlobalStyles } from '@mui/material';
@@ -24,26 +24,37 @@ import { I18nextProvider } from 'react-i18next';
 import { useInitLocale } from '@locale/locale';
 import i18n from '@locale/i18n';
 import "./App.css";
+import { SnackbarProvider } from 'notistack';
+import { StyledNotifications } from '@components/Notifications/Styles';
 
-const MainPage = React.lazy(() => import('@components/MainPage'));
-const Error404Page = React.lazy(() => import('@components/Error404Page'));
+const MainPage = React.lazy(() => import('@pages/MainPage'));
+const Error404Page = React.lazy(() => import('@pages/Error404Page'));
 
 function App() {
+  const StylesNotification = useMemo(() => StyledNotifications, [])
+
   useInitLocale();
 
   return (
     <I18nextProvider i18n={i18n}>
-      <StyledEngineProvider enableCssLayer>
-        <GlobalStyles styles="@layer theme, base, mui, components, utilities;" />
-          <BrowserRouter>
-            <Suspense fallback={<Loader />}>
-              <Routes>
-                <Route path="/" element={<MainPage />} /> 
-                <Route path="*" element={<Error404Page />} />
-              </Routes>
-            </Suspense>
-          </BrowserRouter>
-      </StyledEngineProvider>
+      <SnackbarProvider
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        Components={{
+          default: StylesNotification
+        }}
+      >
+        <StyledEngineProvider enableCssLayer>
+          <GlobalStyles styles="@layer theme, base, mui, components, utilities;" />
+            <BrowserRouter>
+              <Suspense fallback={<Loader />}>
+                <Routes>
+                  <Route path="/" element={<MainPage />} /> 
+                  <Route path="*" element={<Error404Page />} />
+                </Routes>
+              </Suspense>
+            </BrowserRouter>
+        </StyledEngineProvider>
+      </SnackbarProvider>
     </I18nextProvider>
   );
 }

@@ -42,8 +42,8 @@ https://github.com/user-attachments/assets/5a95db6c-6fb4-428e-9d2d-81913dea5721
 
 # Libraries
 
-- [`Astro`](https://astro.build/)
-- [`Vite/VitePWA`](https://vite.dev/)
+- [`Vite`](https://vite.dev/)
+- [`VitePWA`](https://vite-pwa-org.netlify.app/)
 - [`TypeScript`](https://typescriptlang.org/)
 - [`React`](https://react.dev/)
 - [`Tailwind`](https://tailwindcss.com/)

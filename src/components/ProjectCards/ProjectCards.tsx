@@ -18,40 +18,12 @@
 import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
-
-const projects = [
-  {
-    id: 1,
-    image: "/assets/images/myjourneyprogramming.png",
-    title: 'My Informatics journal',
-    description: 'My computer science project is 09.05.25, where I share what I\'ve learned during this school year about programming and tell you more about myself.',
-    technologies: ['Vite', 'React', 'TypeScript', 'CSS', 'PHP', 'MySQL'],
-  },
-  {
-    id: 2,
-    image: "/assets/images/example.png",
-    title: 'Image and videos on ASCII',
-    description: 'Convert images and videos to ASCII with colors.',
-    technologies: ['C', 'FFmpeg'],
-  },
-  {
-    id: 3,
-    image: "/assets/images/gameswords.png",
-    title: 'Sword clicker',
-    description: 'All in all, this was the third project I ever made. I didn\'t know a lot back then, and that\'s why it turned out poorly.',
-    technologies: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
-  },
-  {
-    id: 4,
-    image: "/assets/images/portfolio.png",
-    title: 'My Portfolio',
-    description: 'the project was initially for familiarization with new libraries for me tailwind css, MUI, Framer motion. But eventually it grew into my portfolio :)',
-    technologies: ['Vite', 'React', 'Tailwind', 'TypeScript', 'MUI', 'Framer Motion'],
-  },
-];
+import { Projects, type Project } from '@components/ProjectCards/ProjectData'
+import ProjectModal from '@components/ProjectCards/ProjectModal/ProjectModal';
 
 const ProjectCards = () => {
   const [isHovered, setIsHovered] = useState<number | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
   return (
     <Box
@@ -61,18 +33,19 @@ const ProjectCards = () => {
         justifyContent: 'center',
         gridTemplateColumns: {
           xs: 'repeat(1, 1fr)',
-          sm: 'repeat(2, 1fr)',
-          md: 'repeat(3, 1fr)',
+          sm: 'repeat(1, 1fr)',
+          md: 'repeat(2, 1fr)',
           lg: 'repeat(3, 1fr)',
         },
       }}
     >
-      {projects.map((project) => (
+      {Projects.map((project) => (
         <motion.div
           key={project.id}
           className="relative rounded-4xl bg-dark-purple-900 p-6 flex flex-col items-center justify-between"
           onMouseEnter={() => setIsHovered(project.id)}
           onMouseLeave={() => setIsHovered(null)}
+          onClick={() => setSelectedProject(project)}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -106,6 +79,10 @@ const ProjectCards = () => {
           )}
         </motion.div>
       ))}
+      <ProjectModal 
+        project={selectedProject} 
+        onClose={() => setSelectedProject(null)} 
+      />
     </Box>
   );
 };

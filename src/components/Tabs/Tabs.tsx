@@ -23,10 +23,10 @@ import useIsMobile from "@hooks/useIsMobile";
 import { useLocale } from "@locale/locale";
 
 const customColors = {
-  background: "#5A199B",
-  selected: "#240046",
-  text: "#E0AAFE",
-  textselect: "#ffffff",
+  background: "var( --color-dark-purple-800)",
+  selected: "var(--color-dark-purple-900)",
+  text: "var(--color-dark-purple-600)",
+  textselect: "var(--color-white)",
 };
 
 const StyledTabs = styled(Tabs)(({ theme: _ }) => ({
@@ -46,7 +46,6 @@ const StyledTabs = styled(Tabs)(({ theme: _ }) => ({
     top: "0",
     borderRadius: "23px",
     transform: 'scale(0.97)',
-    boxShadow: "0 4px 12px 0 rgba(0,0,0,0.16)",
   },
 }));
 
@@ -68,13 +67,13 @@ const StyledTab = styled(Tab)(({ theme: _ }) => ({
 
 export function MyTabs(props: TabsProps) {
   const [value, setValue] = useState(0);
-  const isScrollingByClick = useRef(false); // Создаём реф для отслеживания ручного скролла
+  const isScrollingByClick = useRef(false);
   const anchorMap = ["#hello", "#about-me", "#skills", "#projects"];
   const isMobile = useIsMobile();
   const [ t ] = useLocale();
 
   const handleScroll = (newValue: number) => {
-    isScrollingByClick.current = true; // Устанавливаем флаг, когда скроллинг начинается
+    isScrollingByClick.current = true;
     setValue(newValue);
     const targetId = anchorMap[newValue].substring(1);
     const element = document.getElementById(targetId);
@@ -85,7 +84,6 @@ export function MyTabs(props: TabsProps) {
 
   useEffect(() => {
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
-      // Игнорируем события, если скролл был вызван кликом
       if (isScrollingByClick.current) {
         return;
       }

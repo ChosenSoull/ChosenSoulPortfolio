@@ -15,4 +15,18 @@
  / You should have received a copy of the GNU General Public License
  / along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-/// <reference types="vite/client" />
+import React from 'react';
+import { useLocale } from '@locale/locale';
+import { enqueueSnackbar, type VariantType } from 'notistack';
+
+export const useStaticNotification = () => {
+  const [t] = useLocale();
+
+  const showNotify = (message: string | React.ReactNode, variant: VariantType = 'default') => {
+    const content = typeof message === 'string' ? t(message) : message;
+
+    enqueueSnackbar(content, { variant });
+  };
+
+  return showNotify;
+};
