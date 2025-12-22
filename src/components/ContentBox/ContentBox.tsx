@@ -66,9 +66,10 @@ export function ContentBox() {
 
     const PutStarrGithubRepo = () => {
         ShowStaticNotification(
-            <div className="flex gap-x-2 whitespace-nowrap">
-                <p>{t("PutStarrGithub")}</p>
-                <a className="text-dark-purple-700" href="https://github.com/ChosenSoull/ChosenSoulPortfolio">{t("repo")}</a>
+            <div>
+                <p className="text-[14px] sm:text-auto">{t("PutStarrGithub")} 
+                <a className="text-dark-purple-700 ml-1" href="https://github.com/ChosenSoull/ChosenSoulPortfolio">{t("repo")}</a>
+								</p>	
             </div>
         )
     }
