@@ -14,16 +14,24 @@
  /
  / You should have received a copy of the GNU General Public License
  / along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
-export const StyledModal = {
-  position: 'relative' as 'relative',
-  transform: 'translate(-50%, -50%)',
-  width: '90%',
-  maxWidth: '600px',
-  bgcolor: 'var(--color-dark-purple-900)',
-  border: '3px solid var(--color-dark-purple-650)',
-  boxShadow: '0 0 1rem var(--color-dark-purple-800)',
-  borderRadius: '36px',
-  p: 4,
-  outline: 'none',
-};
+*/ 
+import { useIsMobile } from '@hooks/useIsMobile';
+
+export const StyledModal = () => {
+	const Mobile = useIsMobile();
+	
+	const modalStyle = {
+  	position: 'relative' as 'relative',
+  	transform: 'translate(-50%, -50%)',
+  	width: '90%',
+  	maxWidth: '600px',
+ 		bgcolor: 'var(--color-dark-purple-900)',
+  	border: '3px solid var(--color-dark-purple-650)',
+  	boxShadow: '0 0 1rem var(--color-dark-purple-800)',
+  	borderRadius: '36px',
+  	p: Mobile ? 3 : 4,
+  	outline: 'none',
+	};
+
+	return modalStyle;
+}

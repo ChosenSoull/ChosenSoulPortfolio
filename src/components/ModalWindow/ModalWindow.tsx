@@ -19,6 +19,7 @@ import React from 'react';
 import { Modal, Box } from '@mui/material';
 import { StyledModal } from '@components/ModalWindow/Styles';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useIsMobile } from '@hooks/useIsMobile';
 
 interface ModalWindowProps {
   isOpen: boolean;
@@ -33,6 +34,9 @@ export const ModalWindow: React.FC<ModalWindowProps> = ({
     children, 
     maxWidth = 500 
 }) => {
+		const isMobile = useIsMobile(); 
+		const StylesModal = StyledModal();
+
     return (
         <Modal
             open={isOpen} 
@@ -58,9 +62,9 @@ export const ModalWindow: React.FC<ModalWindowProps> = ({
                             mass: 3
                         }}
                         sx={{
-                            ...StyledModal,
+                            ...StylesModal,
                             position: 'relative',
-                            width: '100%',
+                            width: isMobile ? '70%': '100%',
                             maxWidth: maxWidth,
                         }}
                     >

@@ -42,19 +42,20 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 alt={project.title}
               />
 
-              <Typography variant="h4" className="text-dark-purple-600 font-bold">
+              <Typography variant="h4" className="text-dark-purple-600 
+							text-[23px] sm:text-4xl">
                 {project.title}
               </Typography>
 
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map((tech, i) => (
-                  <span key={i} className="px-3 py-1 bg-dark-purple-800 text-dark-purple-600 rounded-full text-sm ">
+                  <span key={i} className="px-2 sm:px-3 py-1 bg-dark-purple-800 text-dark-purple-600 rounded-full text-sm">
                     {tech}
                   </span>
                 ))}
               </div>
 
-              <Typography className="text-dark-purple-650 text-lg leading-relaxed">
+              <Typography className="text-dark-purple-650 text-[14px] sm:text-lg leading-relaxed">
                 {project.description}
               </Typography>
             </Box>
