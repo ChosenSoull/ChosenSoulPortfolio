@@ -16,7 +16,7 @@
     "@tailwindcss/vite": "^4.1.18",
     "@vitejs/plugin-react": "^5.1.2",
     "babel-plugin-react-compiler": "^1.0.0",
-    "framer-motion": "^12.26.1",
+    "framer-motion": "^12.27.0",
     "i18next": "^25.7.4",
     "notistack": "^3.0.2",
     "react": "^19.2.3",
